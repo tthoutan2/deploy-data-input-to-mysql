@@ -18,7 +18,9 @@ MSA_ECR = "120387605022.dkr.ecr.{region}.amazonaws.com"
 MSA_NEXUS = "nexus.mmt.local:8085"
 
 def test_input_mysql(app):
-    print("test")
+    print(os.environ['MY_SQL_HOST'])
+    print(os.environ['MY_SQL_PASS'])
+    print(os.environ['MY_SQL_USER'])
 
 def prepare_app_build_environment(app, tag=None):
     repo_name = "mmt-server-{}".format(app)

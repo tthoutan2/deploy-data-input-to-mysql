@@ -39,18 +39,18 @@ def test_input_mysql(service, env, worker_count=None, log_level=None, fargate_cp
                             finished_at TIMESTAMP NULL,
                             service VARCHAR(64) NULL,
                             env VARCHAR(8) NULL,
-                            fargate_cpu VARCHAR(8) NULL,
-                            fargate_memory VARCHAR(8) NULL,
-                            app_cpu VARCHAR(8) NULL,
-                            app_memory VARCHAR(8) NULL,
-                            desired_count VARCHAR(8) NULL,
+                            fargate_cpu INT NULL,
+                            fargate_memory INT NULL,
+                            app_cpu INT NULL,
+                            app_memory INT NULL,
+                            desired_count INT NULL,
                             log_level VARCHAR(16) NULL,
-                            worker_count VARCHAR(8) NULL,
+                            worker_count INT NULL,
                             release_type VARCHAR(16) NULL,
                             region VARCHAR(20) NULL,
                             additional_apk VARCHAR(32) NULL,
                             image_tag VARCHAR(16) NULL,
-                            ecs_autoscale_min_instances VARCHAR(8) NULL,
+                            ecs_autoscale_min_instances INT NULL,
                             PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4
             """
@@ -64,10 +64,10 @@ def test_input_mysql(service, env, worker_count=None, log_level=None, fargate_cp
                                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
                                               %s, %s, %s)"""
             cursor.execute(sql, (os.getenv('started_at'), os.getenv('finished_at'), service, env,
-                                 os.getenv('worker_count', worker_count), os.getenv('log_level', log_level),
                                  os.getenv('fargate_cpu', fargate_cpu), os.getenv('fargate_memory', fargate_memory),
                                  os.getenv('app_cpu', app_cpu), os.getenv('app_memory', app_memory),
-                                 os.getenv('desired_count', desired_count), os.getenv('release_type', release_type),
+                                 os.getenv('desired_count', desired_count), os.getenv('log_level', log_level),
+                                 os.getenv('worker_count', worker_count), os.getenv('release_type', release_type),
                                  os.getenv('region', region), os.getenv('additional_apk', additional_apk),
                                  os.getenv('image_tag', image_tag),
                                  os.getenv('ecs_autoscale_min_instances', ecs_autoscale_min_instances)))

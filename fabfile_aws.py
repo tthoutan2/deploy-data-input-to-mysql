@@ -18,51 +18,61 @@ MSA_ECR = "120387605022.dkr.ecr.{region}.amazonaws.com"
 MSA_NEXUS = "nexus.mmt.local:8085"
 
 
-def test_print():
-    print(os.getenv('started_at'))
-#
-# def test_input_mysql(app):
-#     connection = pymysql.connect(host=os.environ['MY_SQL_HOST'],
-#                                  user=os.environ['MY_SQL_USER'],
-#                                  password=os.environ['MY_SQL_PASS'],
-#                                  db='test',
-#                                  charset='utf8mb4',
-#                                  port=3306,
-#                                  autocommit=True
-#                                  )
-#     try:
-#         with connection.cursor() as cursor:
-#             sql = """CREATE TABLE IF NOT EXISTS deploy_data (
-#                             id INT NOT NULL AUTO_INCREMENT,
-#                             started_at TIMESTAMP NULL,
-#                             finished_at TIMESTAMP NULL,
-#                             service VARCHAR(64) NULL,
-#                             env VARCHAR(8) NULL,
-#                             fargate_cpu INT NULL,
-#                             fargate_memory INT NULL,
-#                             app_cpu INT NULL,
-#                             app_memory INT NULL,
-#                             desired_count INT NULL,
-#                             log_level VARCHAR(16) NULL,
-#                             worker_count INT NULL,
-#                             release_type VARCHAR(16) NULL,
-#                             region VARCHAR(20) NULL,
-#                             additional_apk VARCHAR(32) NULL,
-#                             image_tag VARCHAR(16) NULL,
-#                             ecs_autoscale_min_instances INT NULL,
-#                             PRIMARY KEY(id),
-#             ) DEFAULT CHARACTER SET utf8mb4"""
-#
-#             cursor.execute(sql)
-#         with connection.cursor() as cursor:
-#             sql = """INSERT INTO deploy_date (started_at, finished_at, service, env, fargate_cpu,
-#                                               fargate_memory, app_cpu, app_memory, desired_count,
-#                                               log_level, worker_count, release_type, region,
-#                                               additional_apk, image_tag, ecs_autoscale_min_instances)
-#                                       VALUES (%s, %s, %s, %s, %d, %d, %d, %d, %d, %s, %d, %s, %s,
-#                                               %s, %s, %i)"""
-#             cursor.execute(sql, (os.environ['']))
-#     finally:
+def test_input_mysql(service, env, worker_count=None, log_level=None, fargate_cpu=256, fargate_memory=512, app_cpu=250,
+                     app_memory=500, desired_count=2, release_type="patch", region="us-east-1", additional_apk="",
+                     image_tag="latest", ecs_autoscale_min_instances=2):
+
+    connection = pymysql.connect(host=os.environ['MY_SQL_HOST'],
+                                 user=os.environ['MY_SQL_USER'],
+                                 password=os.environ['MY_SQL_PASS'],
+                                 db='test',
+                                 charset='utf8mb4',
+                                 port=3306,
+                                 autocommit=True
+                                 )
+
+    try:
+        with connection.cursor() as cursor:
+            sql = """CREATE TABLE IF NOT EXISTS deploy_data (
+                            id INT NOT NULL AUTO_INCREMENT,
+                            started_at TIMESTAMP NULL,
+                            finished_at TIMESTAMP NULL,
+                            service VARCHAR(64) NULL,
+                            env VARCHAR(8) NULL,
+                            fargate_cpu INT NULL,
+                            fargate_memory INT NULL,
+                            app_cpu INT NULL,
+                            app_memory INT NULL,
+                            desired_count INT NULL,
+                            log_level VARCHAR(16) NULL,
+                            worker_count INT NULL,
+                            release_type VARCHAR(16) NULL,
+                            region VARCHAR(20) NULL,
+                            additional_apk VARCHAR(32) NULL,
+                            image_tag VARCHAR(16) NULL,
+                            ecs_autoscale_min_instances INT NULL,
+                            PRIMARY KEY(id),
+            ) DEFAULT CHARACTER SET utf8mb4"""
+
+            cursor.execute(sql)
+        with connection.cursor() as cursor:
+            sql = """INSERT INTO deploy_date (started_at, finished_at, service, env, fargate_cpu,
+                                              fargate_memory, app_cpu, app_memory, desired_count,
+                                              log_level, worker_count, release_type, region,
+                                              additional_apk, image_tag, ecs_autoscale_min_instances)
+                                      VALUES (%s, %s, %s, %s, %d, %d, %d, %d, %d, %s, %d, %s, %s,
+                                              %s, %s, %i)"""
+            cursor.execute(sql, (os.getenv('started_at'), os.getenv('finished_at'), service, env,
+                                 os.getenv('worker_count', worker_count), os.getenv('log_level', log_level),
+                                 os.getenv('fargate_cpu', fargate_cpu), os.getenv('fargate_memory', fargate_memory),
+                                 os.getenv('app_cpu', app_cpu), os.getenv('app_memory', app_memory),
+                                 os.getenv('desired_count', desired_count), os.getenv('release_type', release_type),
+                                 os.getenv('region', region), os.getenv('additional_apk', additional_apk),
+                                 os.getenv('image_tag', image_tag),
+                                 os.getenv('ecs_autoscale_min_instances', ecs_autoscale_min_instances)))
+
+    finally:
+        connection.close()
 
 
 def prepare_app_build_environment(app, tag=None):

@@ -26,7 +26,7 @@ def test_input_mysql(app):
                                  password=os.environ['MY_SQL_PASS'],
                                  db='test',
                                  charset='utf8mb4',
-                                 port=3306
+                                 port=3306,
                                  autocommit=True
                                  )
     try: 

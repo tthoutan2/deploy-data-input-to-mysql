@@ -61,6 +61,7 @@ def test_input_mysql(app):
                                       VALUES (%s, %s, %s, %s, %d, %d, %d, %d, %d, %s, %d, %s, %s, 
                                               %s, %s, %i)"""
             cursor.execute(sql, (os.environ['']))
+
 def prepare_app_build_environment(app, tag=None):
     repo_name = "mmt-server-{}".format(app)
     if not os.path.isdir(app):

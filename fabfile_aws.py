@@ -51,8 +51,9 @@ def test_input_mysql(service, env, worker_count=None, log_level=None, fargate_cp
                             additional_apk VARCHAR(32) NULL,
                             image_tag VARCHAR(16) NULL,
                             ecs_autoscale_min_instances INT NULL,
-                            PRIMARY KEY(id),
-            ) DEFAULT CHARACTER SET utf8mb4"""
+                            PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4
+            """
 
             cursor.execute(sql)
         with connection.cursor() as cursor:

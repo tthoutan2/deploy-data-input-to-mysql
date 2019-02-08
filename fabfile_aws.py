@@ -57,7 +57,7 @@ def test_input_mysql(service, env, worker_count=None, log_level=None, fargate_cp
 
             cursor.execute(sql)
         with connection.cursor() as cursor:
-            sql = """INSERT INTO deploy_date (started_at, finished_at, service, env, fargate_cpu,
+            sql = """INSERT INTO deploy_data (started_at, finished_at, service, env, fargate_cpu,
                                               fargate_memory, app_cpu, app_memory, desired_count,
                                               log_level, worker_count, release_type, region,
                                               additional_apk, image_tag, ecs_autoscale_min_instances)

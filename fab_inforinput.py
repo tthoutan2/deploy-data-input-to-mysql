@@ -132,8 +132,8 @@ def deploy_info_datalake(env):
                                         VALUES (%s, %s, %s, %s, %s, %s)
             """
 
-            cursor.execute(sql, (os.getenv('started_at'), os.getenv('finished_at'), os.getenv('service', 'datalake'),
-                                 env, os.getenv('github_branch'), os.getenv('BUILD_NUMBER')))
+            cursor.execute(sql, (os.getenv('started_at'), os.getenv('finished_at'), 'datalake',
+                                 env, os.getenv('GITHUB_BRANCH'), os.getenv('BUILD_NUMBER')))
 
     finally:
         connection.close()

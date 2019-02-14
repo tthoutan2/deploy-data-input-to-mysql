@@ -386,7 +386,7 @@ def build_info_bastion(purpose):
             cursor.execute(sql)
 
         with connection.cursor() as cursor:
-            sql = """INSERT INTO info_beta_bastion (started_at, finished_at, purpose, action_name, environment, 
+            sql = """INSERT INTO info_bastion (started_at, finished_at, purpose, action_name, environment, 
                                                     service_name, request_user, build_number)
                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
 

@@ -43,7 +43,7 @@ def deploy_info_beta_prod(service, env):
             sql = """INSERT INTO info_beta_prod (built_at, service, env, fargate_cpu,
                                               fargate_memory, app_cpu, app_memory, desired_count,
                                               log_level, worker_count, release_type, region,
-                                              additional_apk, image_tag, ecs_autoscale_min_instances, build_number)
+                                              additional_apk, img_tag_version, ecs_autoscale_min_instances, build_number)
                                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
                                               %s, %s, %s, %s)"""
 

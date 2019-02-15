@@ -45,7 +45,7 @@ def deploy_info_beta_prod(service, env):
                                               log_level, worker_count, release_type, region,
                                               additional_apk, img_tag_version, ecs_autoscale_min_instances, build_number)
                                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
-                                              %s, %s, %s, %s)"""
+                                              %s, %s, %s)"""
 
             latest_img_tag = _get_latest_image_tag(service, 'us-east-1')
             cursor.execute(sql, (os.getenv('built_at'), service, env,
@@ -90,7 +90,7 @@ def deploy_info_etc(service, env):
 
         with connection.cursor() as cursor:
             sql = """INSERT INTO info_etc (built_at, service, env, description, build_number)
-                                    VALUES(%s, %s, %s, %s, %s, %s)"""
+                                    VALUES(%s, %s, %s, %s, %s)"""
 
             cursor.execute(sql, (os.getenv('built_at'), service, env,
                                  os.getenv('description'), os.getenv('BUILD_NUMBER')))
@@ -136,7 +136,7 @@ def deploy_info_yata(env):
             sql = """INSERT INTO info_yata (built_at, host_url, is_server, version_update, region, 
                                             env, app_cpu, app_memory, desired_count, static_host, gtm_value,
                                             rollback_version, build_number)
-                                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
             cursor.execute(sql, (os.getenv('built_at'), os.getenv('host_url'),
                                  os.getenv('is_server'), os.getenv('version_update'),
@@ -185,7 +185,7 @@ def deploy_info_local(service):
         with connection.cursor() as cursor:
             sql = """INSERT INTO info_local (built_at, service, additional_apk, debug, environment,
                                              stack_name, replica_num, memory_limit, cpu_limit, git_branch, build_number)
-                                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
             cursor.execute(sql, (os.getenv('built_at'), service,
                                  os.getenv('additional_apk'), os.getenv('debug'),
@@ -226,7 +226,7 @@ def deploy_info_local_yata():
 
         with connection.cursor() as cursor:
             sql = """INSERT INTO info_local_yata (built_at, is_server, host, port, build_number)
-                                          VALUES (%s, %s, %s, %s, %s, %s)
+                                          VALUES (%s, %s, %s, %s, %s)
             """
 
             cursor.execute(sql, (os.getenv('built_at'), os.getenv('is_server'),
@@ -267,7 +267,7 @@ def build_info_bastion(purpose):
         with connection.cursor() as cursor:
             sql = """INSERT INTO info_bastion (built_at, purpose, action_name, environment, 
                                                     service_name, request_user, build_number)
-                                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+                                            VALUES (%s, %s, %s, %s, %s, %s, %s)"""
 
             cursor.execute(sql, (os.getenv('built_at'), purpose, os.getenv('action'),
                                  os.getenv('environment'), os.getenv('service_name'),

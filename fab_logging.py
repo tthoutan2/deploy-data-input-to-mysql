@@ -48,6 +48,7 @@ def deploy_info_beta_prod(service, env):
                                               %s, %s, %s)"""
 
             latest_img_tag = _get_latest_image_tag(service, 'us-east-1')
+            print(latest_img_tag)
             cursor.execute(sql, (os.getenv('built_at'), service, env,
                                  os.getenv('fargate_cpu'), os.getenv('fargate_memory'),
                                  os.getenv('app_cpu'), os.getenv('app_memory'),
